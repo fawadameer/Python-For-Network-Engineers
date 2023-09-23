@@ -1,0 +1,16 @@
+ena
+conf t
+ena pass cisco
+username fawad pass cisco
+username fawad privilege 15
+line vty 0 15
+login local
+tran input all
+end
+wr
+
+conf t
+int fas 0/0
+ip add dhcp
+no sh
+exit
