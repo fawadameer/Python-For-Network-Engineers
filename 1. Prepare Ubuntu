@@ -2,3 +2,6 @@ After Ubuntu VM installation run the following command to udpate the packages
 sudo apt-get udpate
 Install SSH with the followign command "sudo apt install ssh"
 Install Python3 on Ubuntu with the following command "apt install python3"
+Install Pip with the following command "apt install python3-pip"
+pip install pytest pytest-clarity pyyaml tabulate jinja2 textfsm pexpect netmiko graphviz
+apt-get install graphviz
