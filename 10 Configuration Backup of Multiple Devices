@@ -14,12 +14,6 @@ while line:
         # process the line
         print(line)
         tn = telnetlib.Telnet(line)
-#  Telnet to each switch and cofigure it
-#for line in f:	
-	#HOST = line.strip()
-        
-        
-
         tn.read_until(b"Username: ") #username of our network device which we have configured in step 2. Base configuration of switches
         tn.write(user.encode('ascii') + b"\n")
         if password:
