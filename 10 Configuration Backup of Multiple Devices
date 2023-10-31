@@ -1,0 +1,39 @@
+import telnetlib
+import getpass
+
+user = input("Enter username: ")
+password = getpass.getpass()
+
+#need to create separet file for IP address to take backup of multiple devices
+
+f = open ("C:\\Users\\Fawad\\Desktop\\Python\\myswitches.txt")
+
+line = f.readline()   # include newline
+while line:
+        line = line.rstrip()  # strip trailing spaces and newline
+        # process the line
+        print(line)
+        tn = telnetlib.Telnet(line)
+#  Telnet to each switch and cofigure it
+#for line in f:	
+	#HOST = line.strip()
+        
+        
+
+        tn.read_until(b"Username: ") #username of our network device which we have configured in step 2. Base configuration of switches
+        tn.write(user.encode('ascii') + b"\n")
+        if password:
+                tn.read_until(b"Password: ")
+                tn.write(password.encode('ascii') + b"\n")
+
+        tn.write(b"terminal length 0\n")
+        tn.write(b"show run\n")
+        tn.write(b"exit\n")
+        
+        readoutput = tn.read_all()
+        saveoutput = open("C:\\Users\\Fawad\\Desktop\\Python\\Backup\\switch " + line, "w")
+        saveoutput.write(readoutput.decode('ascii'))
+        saveoutput.write("\n")
+        saveoutput.close
+        print(tn.read_all().decode('ascii'))
+        line = f.readline()
