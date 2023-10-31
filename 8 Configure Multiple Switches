@@ -5,7 +5,7 @@ import telnetlib
 user = input("Enter username: ")
 password = getpass.getpass()
 
-f = open ("C:\\Users\\Fawad\\Desktop\\Python\\myswitches.txt") #File location with IP address of your switch. Each line will contain one IP address
+f = open ("C:\\Users\\Fawad\\Desktop\\Python\\myswitches.txt") #File location. Each line will contain one IP address of you network device
 
 line = f.readline()   # include newline
 while line:
@@ -23,12 +23,13 @@ while line:
     tn.write(b"conf t\n")
     for n in range(2,11): #vlan range of yoru network devices
         tn.write(b"vlan " + str(n).encode('ascii') + b"\n")
-        tn.write(b"name FOC_VLAN_New" + str(n).encode('ascii') + b"\n")
+        tn.write(b"name FOC_VLAN_" + str(n).encode('ascii') + b"\n")
 
     tn.write(b"exit\n")
     tn.write(b"end\n")
     tn.write(b"wr\n")
     tn.write(b"exit\n")
 
-    print(tn.read_all().decode('ascii'))
-    line = f.readline()
+    print(tn.read_all().decode('ascii')) # This line will print the configuration on terminal. Which you can review for verification.
+    line = f.readline() # This line will start reading the next line from the file. i.e. in you file "myswitches.txt" first IP is 192.168.159.138 once above mentioned job completed then it will read the next line from the
+file and that line will be next IP of your device.
