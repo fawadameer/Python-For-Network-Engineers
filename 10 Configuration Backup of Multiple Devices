@@ -6,7 +6,7 @@ password = getpass.getpass()
 
 #need to create separet file for IP address to take backup of multiple devices
 
-f = open ("C:\\Users\\Fawad\\Desktop\\Python\\myswitches.txt")
+f = open ("C:\\Users\\Fawad\\Desktop\\Python\\myswitches.txt") #File location. Each line will contain one IP address of you network device
 
 line = f.readline()   # include newline
 while line:
