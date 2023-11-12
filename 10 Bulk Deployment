@@ -1,0 +1,71 @@
+import getpass
+import sys
+import telnetlib
+
+user = input("Enter username: ")
+password = getpass.getpass()
+
+f = open ("C:\\Users\\Fawad\\Desktop\\Python\\myswitches.txt")
+
+line = f.readline()   # include newline
+while line:
+    line = line.rstrip()  # strip trailing spaces and newline
+    # process the line
+    print(line)
+
+#for n in (138, 141): #IP address range of your network devices
+    #HOST = "192.168.159." + str(n)
+    tn = telnetlib.Telnet(line)
+
+    tn.read_until(b"Username: ") #username of our network device which we have configured in step 2. Base configuration of switches
+    tn.write(user.encode('ascii') + b"\n")
+    if password:
+        tn.read_until(b"Password: ")
+        tn.write(password.encode('ascii') + b"\n")
+
+    tn.write(b"conf t\n")
+    for n in range(2,11): #vlan range of yoru network devices
+        tn.write(b"vlan " + str(n).encode('ascii') + b"\n")
+        tn.write(b"name FOC_VLAN_" + str(n).encode('ascii') + b"\n")
+
+    tn.write(b"exit\n")
+    tn.write(b"clock timezone Qatar +3\n")
+    tn.write(b"ip domain name foc.local\n")
+    tn.write(b"no ip domain lookup\n")
+    tn.write(b"no ip source-route\n")
+    tn.write(b"int range fastEthernet 1/0 - 5\n")
+    tn.write(b"switchport mode access\n")
+    tn.write(b"switchport access vlan 5\n")
+    tn.write(b"no shutdown\n")
+    tn.write(b"int range fastEthernet 1/6 - 10\n")
+    tn.write(b"switchport mode access\n")
+    tn.write(b"switchport access vlan 10\n")
+    tn.write(b"no shutdown\n")
+    tn.write(b"int range fastEthernet 1/14 - 15\n")
+    tn.write(b"switchport trunk encapsulation dot1q\n")
+    tn.write(b"switchport mode trunk\n")
+    tn.write(b"switchport trunk allowed vlan all\n")
+    tn.write(b"no shutdown\n")
+    tn.write(b"exit\n")
+    tn.write(b"ip routing\n")
+    tn.write(b"router ospf 1\n")
+    tn.write(b"network 0.0.0.0 0.0.0.0 a 0\n")
+    tn.write(b"exit\n")
+    tn.write(b"ip access-list standard FutureOnCloud\n")
+    tn.write(b"permit 10.10.10.10\n")
+    tn.write(b"permit 20.20.20.20\n")
+    tn.write(b"deny any\n")
+    tn.write(b"exit\n")
+    tn.write(b"logging console notifications\n")
+    tn.write(b"logging trap notifications\n")
+    tn.write(b"logging 192.168.159.130\n")
+    tn.write(b"ntp server 192.168.158.131\n")
+    tn.write(b"snmp-server community public ro\n")
+    tn.write(b"snmp-server host 192.168.159.130 traps version 2 public\n")
+    tn.write(b"spanning-tree portfast bpduguard\n")
+    tn.write(b"end\n")
+    tn.write(b"wr\n")
+    tn.write(b"exit\n")
+
+    print(tn.read_all().decode('ascii'))
+    line = f.readline()
