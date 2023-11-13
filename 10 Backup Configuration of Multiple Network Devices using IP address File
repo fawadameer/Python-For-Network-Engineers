@@ -1,4 +1,6 @@
 #Backup Configuration of Multiple Network Devices using IP address File
+#Python v2023.20.0 IntelliSense (Pylance), Linting, Debugging (multi-threaded, remote), code formatting, refactoring, unit tests, and more.
+
 import telnetlib
 import getpass
 
@@ -7,7 +9,7 @@ password = getpass.getpass()
 
 #need to create separet file for IP address to take backup of multiple devices
 
-f = open ("C:\\Users\\Fawad\\Desktop\\Python\\myswitches.txt") #File location. Each line will contain one IP address of you network device
+f = open ("C:\\Users\\Fawad\\Desktop\\Python\\myswitches.txt")
 
 line = f.readline()   # include newline
 while line:
