@@ -1,4 +1,5 @@
-# Configure Multiple Switches using IP address file 
+#Configure Multiple Switches using IP address file 
+#Python v2023.20.0 IntelliSense (Pylance), Linting, Debugging (multi-threaded, remote), code formatting, refactoring, unit tests, and more.
 import getpass
 import sys
 import telnetlib
@@ -6,13 +7,14 @@ import telnetlib
 user = input("Enter username: ")
 password = getpass.getpass()
 
-f = open ("C:\\Users\\Fawad\\Desktop\\Python\\myswitches.txt") #File location. Each line will contain one IP address of you network device
+f = open ("C:\\Users\\Fawad\\Desktop\\Python\\myswitches.txt")
 
 line = f.readline()   # include newline
 while line:
     line = line.rstrip()  # strip trailing spaces and newline
     # process the line
     print(line)
+
     tn = telnetlib.Telnet(line)
 
     tn.read_until(b"Username: ") #username of our network device which we have configured in step 2. Base configuration of switches
@@ -22,7 +24,7 @@ while line:
         tn.write(password.encode('ascii') + b"\n")
 
     tn.write(b"conf t\n")
-    for n in range(2,11): #vlan range of yoru network devices
+    for n in range(12,26): #vlan range of yoru network devices
         tn.write(b"vlan " + str(n).encode('ascii') + b"\n")
         tn.write(b"name FOC_VLAN_" + str(n).encode('ascii') + b"\n")
 
@@ -31,6 +33,6 @@ while line:
     tn.write(b"wr\n")
     tn.write(b"exit\n")
 
-    print(tn.read_all().decode('ascii')) # This line will print the configuration on terminal. Which you can review for verification.
+    print(tn.read_all().decode('ascii'))
     line = f.readline() # This line will start reading the next line from the file. i.e. in you file "myswitches.txt" first IP is 192.168.159.138 once above mentioned job completed then it will read the next line from the
 file and that line will be next IP of your device.
