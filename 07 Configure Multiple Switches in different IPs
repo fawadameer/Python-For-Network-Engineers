@@ -1,3 +1,5 @@
+#Python v2023.20.0 IntelliSense (Pylance), Linting, Debugging (multi-threaded, remote), code formatting, refactoring, unit tests, and more.
+#https://www.youtube.com/playlist?list=PLFEQWKEt5xyGj5zvI6r89DZ7N3ToyJI_9
 import getpass
 import sys
 import telnetlib
@@ -5,7 +7,7 @@ import telnetlib
 user = input("Enter username: ")
 password = getpass.getpass()
 
-for n in (139,141,138): #Selective IP address of your network devices
+for n in (139,141,138): #Selective IP addresses of your network devices
     HOST = "192.168.159." + str(n)
     tn = telnetlib.Telnet(HOST)
 
@@ -16,7 +18,7 @@ for n in (139,141,138): #Selective IP address of your network devices
         tn.write(password.encode('ascii') + b"\n")
 
     tn.write(b"conf t\n")
-    for n in range(2,11): #vlan range of yoru network devices
+    for n in range(2,21): #vlan range of yoru network devices
         tn.write(b"vlan " + str(n).encode('ascii') + b"\n")
         tn.write(b"name FOC_VLAN_New" + str(n).encode('ascii') + b"\n")
 
