@@ -1,4 +1,6 @@
-#Python 3.10.12
+#Python v2023.20.0 IntelliSense (Pylance), Linting, Debugging (multi-threaded, remote), code formatting, refactoring, unit tests, and more.
+#https://www.youtube.com/playlist?list=PLFEQWKEt5xyGj5zvI6r89DZ7N3ToyJI_9
+
 import getpass
 import telnetlib
 
