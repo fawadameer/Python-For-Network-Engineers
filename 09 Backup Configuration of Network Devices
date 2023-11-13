@@ -1,4 +1,5 @@
-#Python 3.10.12
+#Backup configuration of single network device
+#Python v2023.20.0 IntelliSense (Pylance), Linting, Debugging (multi-threaded, remote), code formatting, refactoring, unit tests, and more.
 import getpass
 import sys
 import telnetlib
